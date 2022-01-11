@@ -28,7 +28,7 @@ resource "alicloud_vswitch" "hashicat" {
 }
 
 resource "alicloud_security_group" "hashicat" {
-  name = "${var.prefix}-security-group"
+  name   = "${var.prefix}-security-group"
   vpc_id = alicloud_vpc.hashicat.id
 }
 
@@ -84,8 +84,8 @@ resource "alicloud_eip_association" "hashicat" {
 }
 
 resource "alicloud_instance" "hashicat" {
-  instance_name = "${var.prefix}-hashicat"
-  image_id      = data.alicloud_images.ubuntu.images.0.image_id
+  instance_name   = "${var.prefix}-hashicat"
+  image_id        = data.alicloud_images.ubuntu.images.0.image_id
   instance_type   = var.instance_type
   vswitch_id      = alicloud_vswitch.hashicat.id
   security_groups = [alicloud_security_group.hashicat.id]
@@ -158,6 +158,6 @@ locals {
 }
 
 resource "alicloud_ecs_key_pair" "hashicat" {
-   key_pair_name = "hashicat-key"
-   public_key    = tls_private_key.hashicat.public_key_openssh
+  key_pair_name = "hashicat-key"
+  public_key    = tls_private_key.hashicat.public_key_openssh
 }
