@@ -83,6 +83,10 @@ resource "alicloud_eip_association" "hashicat" {
   allocation_id = alicloud_eip_address.hashicat.id
 }
 
+# data "template_file" "user_data" {
+#   template = file("files/deploy_app.sh")
+# }
+
 resource "alicloud_instance" "hashicat" {
   instance_name   = "${var.prefix}-hashicat"
   image_id        = data.alicloud_images.ubuntu.images.0.image_id
@@ -91,6 +95,9 @@ resource "alicloud_instance" "hashicat" {
   security_groups = [alicloud_security_group.hashicat.id]
 
   key_name = alicloud_ecs_key_pair.hashicat.key_name
+
+  # This could be used instead of the provisioner
+  # user_data = "${data.template_file.user_data.template}"
 
   tags = {
     Department = "devops"
