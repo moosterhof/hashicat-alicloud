@@ -72,7 +72,7 @@ data "alicloud_images" "ubuntu" {
 
 resource "alicloud_eip_address" "hashicat" {
   bandwidth            = 1
-  address_name         = "tf-testAcc1234"
+  address_name         = "${var.prefix}-addres"
   isp                  = "BGP"
   internet_charge_type = "PayByBandwidth"
   payment_type         = "PayAsYouGo"
@@ -88,7 +88,7 @@ resource "alicloud_eip_association" "hashicat" {
 # }
 
 resource "alicloud_instance" "hashicat" {
-  instance_name   = "${var.prefix}-hashicat"
+  instance_name   = "${var.prefix}-instance"
   image_id        = data.alicloud_images.ubuntu.images.0.image_id
   instance_type   = var.instance_type
   vswitch_id      = alicloud_vswitch.hashicat.id
