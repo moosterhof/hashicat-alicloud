@@ -165,6 +165,6 @@ locals {
 }
 
 resource "alicloud_ecs_key_pair" "hashicat" {
-  key_pair_name = "hashicat-key"
+  key_pair_name = "${var.prefix}-key"
   public_key    = tls_private_key.hashicat.public_key_openssh
 }
